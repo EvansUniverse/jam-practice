@@ -1,0 +1,78 @@
+version: '3.1'
+networks:
+  app-network:
+    driver: bridge
+
+
+services:
+  db:
+    container_name: db
+    networks:
+      - app-network
+    image: mysql:5.6
+    expose:
+      - 3306 # Default db port is 3306
+    environment:
+      MYSQL_HOST: db
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: testdb
+
+
+  frontend-server:
+    container_name: frontend-server
+    build: 
+      context: frontend/
+      dockerfile: Dockerfile
+      # Env vars for react need to be defined at build time, so we
+      # use docker args to set these values instead.
+      args:
+        REACT_APP_API_HOST: localhost
+        REACT_APP_API_PORT: 8080
+        REACT_APP_DEV_DEBUG_MODE: "true"
+    environment:
+      # Allows hot reload
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      #- /app/node_modules
+      - ./frontend:/app
+    ports: 
+      - 3000:3000
+    depends_on:
+      - backend-server
+    networks:
+      - app-network
+    # https://github.com/facebook/create-react-app/issues/8688
+    stdin_open: true
+
+
+  backend-server:
+    hostname: backend-server
+    container_name: backend-server
+    build: 
+      context: backend/
+      dockerfile: Dockerfile
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      PORT: 8080
+      DB_HOST: db
+      DB_DB: testdb
+      DB_USER: root
+      DB_PASSWORD: 123456
+      DEV_RESET_DB: "true"
+    ports: 
+      - 8080:8080
+    # Wait for database to be ready before starting
+    command: ./wait-for-it.sh --timeout=0 db:3306 -- node server.js
+    networks:
+      - app-network
+
+  api-tester:
+    container_name: api-tester
+    build:
+      context: tests/
+      dockerfile: Dockerfile
+    networks:
+      - app-network
+   #command: /usr/tests/wait-for-it.sh backed-server:8080 -- newman run /usr/tests/postman-collections/myern-app-ci.postman_collection.json
+
+  
