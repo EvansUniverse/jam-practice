@@ -1,10 +1,7 @@
-## Evan's dev notes
-Fix dat breaking bug
-Flesh out API tests (need ones for update endpoints)
-test
+# Jam-Practice
+Web app with flash cards designed especially for musicians.
 
-# Myern App
-A simple boilerplate project for a web app that includes:
+Tech specs:
 * A React frontend, a Node/express backend, and a mySQL database- all dockerized
 * Auth: login, registration, roles, and authenticated requests to the backend
 * A "my account" page to view and modify the current user
@@ -48,7 +45,7 @@ There is a suite of Postman tests in `tests/`. These assume that the database ha
 To run tests locally:
 ```bash
 make local-rt
-make api-tests # In another window
+make api-tests # In another terminal
 ```
 
 To make changes to the tests, import the collection `tests/postman-collections/myern-app-tests.postman_collection.json` and the env file `tests/postman-collections/myern-app-local-env.postman_environment` into Postman, make changes, and export.
@@ -106,7 +103,7 @@ The database is a stock mySQL container. You're an adult and you know how to Goo
 ## Defaults
 New users created through `/api/auth/signup` are given the role of user.
 
-An admin user is created at startup, whose credentials (by default `admin:admin`) can be altered in `backend/config/auth.config.js`. **When setting up a new instance, you are expected to change this user's password to something more secure.**
+An admin user is created at startup, whose credentials (by default `admin:admin`) can be altered in `backend/config/auth.config.js`.
 
 # Misc
 ## Known bugs
@@ -115,11 +112,9 @@ An admin user is created at startup, whose credentials (by default `admin:admin`
 * On a fresh machine, user needs to run `npm i --save @fortawesome/free-solid-svg-icons` or the frontend doesn't compile
 
 ## TODO
+* Buy the domain jam-practice.com
 * Consistent button sizes
 * Automated Postman testing
 * Migrate backend from npm to yarn
 * Add reset db api targer, make tests run it
 * update test image to include dependencies
-
-## Disclaimer
-A generous amount of the code in this project has been adapted, abducted, pillaged, plundered, and plagiarized from various online resources. While I have not saved an exhaustive list of the websites that helped me along the way, I would like to give a special thank you to bezkoder.com.

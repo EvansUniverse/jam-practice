@@ -49,9 +49,23 @@ isModerator = (req, res, next) => {
   });
 };
 
+isUser = (req, res, next) => {
+  User.findByPk(req.userId).then(user => {
+    if (user.role ===  'admin' || user.role === 'moderator' || user.role === 'user'){
+      next();
+    } else {
+      res.status(403).send({
+        message: "This operation requires User permissions."
+      });
+    }
+    return;
+  });
+};
+
 const authJwt = {
   verifyToken: verifyToken,
   isAdmin: isAdmin,
-  isModerator: isModerator
+  isModerator: isModerator,
+  isUser: isUser
 };
 module.exports = authJwt;

@@ -1,16 +1,18 @@
 const db = require("../models");
-const User = db.user;
+const Card = db.card;
 const Op = db.Sequelize.Op;
 
+// TODO add Create endpoint with auto uuid generation
 
-// Gets a list of all users.
+
+// Gets a list of all cards.
 //
 // If page and size are supplied in the request parameters, returns
 // paginated result.
 //
-// If criteria is supplied in the request parameters, returns users
-// with usernames containing the criteria.
-exports.usersGetAll = (req, res) => {
+// If criteria is supplied in the request parameters, returns cards
+// whos titles contain the criteria.
+exports.cardsGetAll = (req, res) => {
   const criteria = req.query.criteria;
   const page = req.query.page;
   const size = req.query.size;
@@ -22,33 +24,33 @@ exports.usersGetAll = (req, res) => {
   }
 
   if(criteria){ 
-    params.where = {username : { [Op.like]: `%${criteria}%` }};
+    params.where = {title : { [Op.like]: `%${criteria}%` }};
   }
 
-  User.findAndCountAll(params)
+  Card.findAndCountAll(params)
     .then(data => {
       const response = getPagingData(data, page, size);
       res.send(response);
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message || "Unknown error."});
+        message: err.message || "Unknown error"});
     });
 }
 
 // Helper function for pagination
 function getPagingData(data, page, size){
   const { count: totalItems, rows: items } = data;
-  const currentPage = page ? +parseInt(page) : 0;
+  const currentPage = page ? + parseInt(page) : 0;
   const totalPages = size ? Math.ceil(totalItems / parseInt(size)) : 1;
 
   return { totalItems, items, totalPages, currentPage };
 };
 
-// Find the user with the specified id.
-exports.usersFindOne = (req, res) => {
+// Get the card with the specified id.
+exports.cardsFindOne = (req, res) => {
   const id = req.params.id;
-  User.findOne({
+  Card.findOne({
     where: { id: id }
   })
     .then(data => {
@@ -59,60 +61,69 @@ exports.usersFindOne = (req, res) => {
     });
 };
 
-// Update the role, username, and/or email of the user with the specified id.
-exports.usersUpdate = (req, res) => {
+// Update the card with the specified id.
+exports.cardsUpdate = (req, res) => {
   const id = req.params.id;
-  if(req.body.role){
-    User.update(
-      { role: req.body.role },
+  if(req.body.title){
+    Card.update(
+      { title: req.body.title },
       { where: { id: id } })
       .catch(err => {
         res.status(500).send({ message: err.message || "Unknown error" });
       });
   }
 
-  if(req.body.username){
-    User.update(
-      { username: req.body.username },
+  if(req.body.content){
+    Card.update(
+      { content: req.body.content },
       { where: { id: id } })
       .catch(err => {
         res.status(500).send({ message: err.message || "Unknown error" });
       });
   }
 
-  if(req.body.email){
-    User.update(
-      { email: req.body.email },
+  if(req.body.difficulty){
+    Card.update(
+      { difficulty: req.body.difficulty },
       { where: { id: id } })
       .catch(err => {
         res.status(500).send({ message: err.message || "Unknown error" });
       });
   }
 
-  res.send({ message: "User updated successfully." });
+  if(req.body.ispublic){
+    Card.update(
+      { ispublic: req.body.ispublic },
+      { where: { id: id } })
+      .catch(err => {
+        res.status(500).send({ message: err.message || "Unknown error" });
+      });
+  }
+
+  res.send({ message: "Card updated successfully." });
 };
 
-// Delete the user with the specified id.
-exports.usersDelete = (req, res) => {
+// Delete the card with the specified id.
+exports.cardsDelete = (req, res) => {
   const id = req.params.id;
 
-  User.destroy({
+  Card.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num >= 1) {
         res.send({
-          message: `User ${id} was deleted successfully.`
+          message: `Card ${id} was deleted successfully.`
         });
       } else {
         res.send({
-          message: `Failed to delete User ${id}. Maybe the id was not found?`
+          message: `Failed to delete card ${id}. Maybe the id was not found?`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: `Failed to delete User ${id}.`
+        message: `Failed to delete card ${id}.`
       });
     });
 };
