@@ -41,6 +41,7 @@ if(DEV_RESET_DB === "true"){
 require('./routes/auth.routes')(app);
 require('./routes/admin.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/card.routes')(app);
 
 const PORT = process.env.PORT || config.defaultPort;
 app.listen(PORT, () => {

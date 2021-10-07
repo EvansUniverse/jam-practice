@@ -1,4 +1,5 @@
 const db = require("../models");
+const { utils } = require("../middleware");
 const Card = db.card;
 const Op = db.Sequelize.Op;
 
@@ -126,4 +127,32 @@ exports.cardsDelete = (req, res) => {
         message: `Failed to delete card ${id}.`
       });
     });
+};
+
+// Create a new card
+exports.create = (req, res) => {
+  Card.create({
+    id: newCardUuid(),
+    title: req.body.title,
+    difficulty: req.body.difficulty,
+    content: req.body.content,
+    ispublic: req.body.ispublic
+  })
+    .then(card => {
+      res.send({ 
+        message: "Card was created successfully!", 
+        uuid: card.uuid 
+      });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message || "Unknown error"});
+    });
+};
+
+newCardUuid = () => {
+  // Generate a new uuid
+  uuid = utils.generateUUID()
+
+  // TODO If there's a collision, re-generate uuid
+  return uuid
 };

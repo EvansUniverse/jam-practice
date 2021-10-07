@@ -15,9 +15,9 @@ module.exports = app => {
 
   // Get all cards, or supply the parameter "criteria" to search for cards
   router.get(
-    '/',
+    '',
     [authJwt.verifyToken, authJwt.isUser],
-    controller.usersGetAll
+    controller.cardsGetAll
   );
 
   // Get card by ID
@@ -47,6 +47,15 @@ module.exports = app => {
     '/:id/delete', 
     [authJwt.verifyToken, authJwt.isUser], 
     controller.cardsDelete
+  );
+
+   // Create a new card
+   router.post(
+    '',
+    [
+      authJwt.verifyToken, authJwt.isUser
+    ],
+    controller.create
   );
 
   app.use('/api/cards', router);

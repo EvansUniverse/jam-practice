@@ -22,4 +22,4 @@ clean:
 	docker volume rm --force $(shell docker volume ls -q)
 
 nuke: clean
-	yes | docker system prune -a
+	yes | docker system prune -a --force
