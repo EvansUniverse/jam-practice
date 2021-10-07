@@ -141,7 +141,7 @@ exports.create = (req, res) => {
     .then(card => {
       res.send({ 
         message: "Card was created successfully!", 
-        uuid: card.uuid 
+        id: card.id 
       });
     })
     .catch(err => {

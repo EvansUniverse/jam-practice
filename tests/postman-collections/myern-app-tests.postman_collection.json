@@ -1001,6 +1001,180 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "[2] Card API",
+			"item": [
+				{
+					"name": "[2.0] Login as admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has a JSON body\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"var data = pm.response.json();",
+									"pm.environment.set(\"admin-token\", data.accessToken)",
+									"",
+									"pm.test(\"Response has an accessToken property\", function () {",
+									"    pm.expect(data.accessToken).to.be.a('string');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/login",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.1] Create  \"card_1\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains \\\"Card was created successfully\\\"\", function () {",
+									"    pm.expect(data.message).to.include(\"Card was created successfully\")",
+									"});",
+									"",
+									"pm.test(\"Response contains a string id\", function () {",
+									"    pm.expect(data.id).to.be.a('string');",
+									"});",
+									"",
+									"pm.environment.set(\"id\", data.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"card_1\",\n    \"difficulty\": \"easy\",\n    \"content\": \"42\",\n    \"ispublic\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards",
+							"host": [
+								"{{url}}cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.2] Get \"card_1\"",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"id of the result is corrrect\", function () {",
+									"    pm.expect(data.id).to.eql(pm.variables.get(\"id\"));",
+									"});",
+									"",
+									"pm.test(\"title is \\\"card_1\\\"\", function () {",
+									"    pm.expect(data.title).to.eql(\"card_1\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards/{{id}}",
+							"host": [
+								"{{url}}cards"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
