@@ -112,6 +112,8 @@ An admin user is created at startup, whose credentials (by default `admin:admin`
 * On a fresh machine, user needs to run `npm i --save @fortawesome/free-solid-svg-icons` or the frontend doesn't compile
 
 ## TODO
+* How should API behave if nothing is sent on a GET to an empty endpoint? It currently returns a 200, maybe should return a 404 or something?
+* Change the user delete endpoint to use HTTP DELETE instead of POST
 * Buy the domain jam-practice.com
 * Consistent button sizes
 * Automated Postman testing

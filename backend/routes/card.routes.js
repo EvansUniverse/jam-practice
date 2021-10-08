@@ -32,19 +32,14 @@ module.exports = app => {
     '/:id/update', 
     [
       authJwt.verifyToken,
-      authJwt.isUser,
-      // TODO verify unique uuid or generate one
-      //
-      // verifySignUp.checkRoleExists,
-      // verifySignUp.checkDuplicateUsername,
-      // verifySignUp.checkDuplicateEmail
+      authJwt.isUser
     ], 
     controller.cardsUpdate
   );
 
   // Delete a card
-  router.post(
-    '/:id/delete', 
+  router.delete(
+    '/:id', 
     [authJwt.verifyToken, authJwt.isUser], 
     controller.cardsDelete
   );
