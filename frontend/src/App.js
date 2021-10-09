@@ -11,6 +11,7 @@ import UserList from "./components/user-list.component.js";
 import UserEdit from "./components/user-edit.component";
 import MyAccount from "./components/my-account.component";
 import CardList from "./components/card-list.component.js";
+import CardEdit from "./components/card-edit.component";
 
 import { AuthService } from "./services/auth.service";
 import { PrivateRoute } from './components/PrivateRoute';
@@ -94,6 +95,7 @@ class App extends Component {
             <Route exact path="/logout" component={Logout} />
 
             <Route exact path="/cards" component={CardList} />
+            <Route path="/cards/:id" component={CardEdit} />
           </Switch>
         </div>
       </div>

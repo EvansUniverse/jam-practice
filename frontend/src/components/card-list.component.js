@@ -221,7 +221,7 @@ export default class CardList extends Component {
                   </div>
     
                   <Link //TODO
-                    to={"/admin/cards/" + currentCard.id}
+                    to={"cards/" + currentCard.id}
                     className="badge badge-warning"
                   >
                     Edit

@@ -29,7 +29,7 @@ module.exports = app => {
 
   // Update one or more of a card's attributes
   router.put(
-    '/:id/update', 
+    '/:id', 
     [authJwt.verifyToken, authJwt.isUser], 
     controller.cardsUpdate
   );
