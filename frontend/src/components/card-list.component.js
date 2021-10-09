@@ -186,7 +186,7 @@ export default class CardList extends Component {
                       onClick={() => this.setActiveCard(card, index)}
                       key={index}
                     >
-                      {card.cardname}
+                      {card.title}
                     </li>
                   ))}
               </ul>
@@ -199,25 +199,25 @@ export default class CardList extends Component {
                     <label>
                       <strong>Title:</strong>
                     </label>{" "}
-                    {currentCard.cardname}
+                    {currentCard.title}
                   </div>
                   <div>
                     <label>
                       <strong>Difficulty:</strong>
                     </label>{" "}
-                    {currentCard.id}
+                    {currentCard.difficulty}
                   </div>
                   <div>
                     <label>
                       <strong>Content:</strong>
                     </label>{" "}
-                    {currentCard.email}
+                    {currentCard.content}
                   </div>
                   <div>
                     <label>
                       <strong>Public:</strong>
                     </label>{" "}
-                    {currentCard.role}
+                    {currentCard.ispublic}
                   </div>
     
                   <Link //TODO
