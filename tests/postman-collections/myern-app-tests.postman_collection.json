@@ -69,8 +69,8 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response contains \\\"User was registered successfully\\\"\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"User was registered successfully\")",
+									"pm.test(\"Response contains \\\"User registered successfully\\\"\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"User registered successfully\")",
 									"});",
 									""
 								],
@@ -242,8 +242,8 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response contains \\\"User was registered successfully\\\"\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"User was registered successfully\")",
+									"pm.test(\"Response contains \\\"User registered successfully\\\"\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"User registered successfully\")",
 									"});",
 									""
 								],
@@ -433,8 +433,8 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response contains \\\"User was registered successfully\\\"\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"User was registered successfully\")",
+									"pm.test(\"Response contains \\\"User registered successfully\\\"\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"User registered successfully\")",
 									"});"
 								],
 								"type": "text/javascript"
@@ -621,7 +621,7 @@
 					"response": []
 				},
 				{
-					"name": "[1.3] Get user ID 1, expect name change",
+					"name": "[1.11] Get user ID 1, expect name change",
 					"event": [
 						{
 							"listen": "test",
@@ -687,7 +687,7 @@
 					"response": []
 				},
 				{
-					"name": "register a",
+					"name": "[1.12] register a",
 					"event": [
 						{
 							"listen": "test",
@@ -697,8 +697,8 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response contains \\\"User was registered successfully\\\"\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"User was registered successfully\")",
+									"pm.test(\"Response contains \\\"User registered successfully\\\"\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"User registered successfully\")",
 									"});",
 									""
 								],
@@ -731,7 +731,7 @@
 					"response": []
 				},
 				{
-					"name": "login as a:a",
+					"name": "[1.13] login as a:a",
 					"event": [
 						{
 							"listen": "test",
@@ -785,7 +785,7 @@
 					"response": []
 				},
 				{
-					"name": "change a's password to b",
+					"name": "[1.14] change a's password to b",
 					"event": [
 						{
 							"listen": "test",
@@ -839,7 +839,7 @@
 					"response": []
 				},
 				{
-					"name": "login as a:b",
+					"name": "[1.15] login as a:b",
 					"event": [
 						{
 							"listen": "test",
@@ -893,7 +893,7 @@
 					"response": []
 				},
 				{
-					"name": "change a's username to b",
+					"name": "[1.16] change a's username to b",
 					"event": [
 						{
 							"listen": "test",
@@ -947,7 +947,7 @@
 					"response": []
 				},
 				{
-					"name": "login as b:b",
+					"name": "[1.17] login as b:b",
 					"event": [
 						{
 							"listen": "test",
@@ -1249,8 +1249,8 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"Response contains \\\"Card was updated successfully\\\"\", function () {",
-									"    pm.expect(data.message).to.include(\"Card was updated successfully\")",
+									"pm.test(\"difficulty is \\\"hard\\\"\", function () {",
+									"    pm.expect(data.difficulty).to.eql(\"hard\")",
 									"});",
 									"",
 									""
@@ -1360,7 +1360,7 @@
 					"response": []
 				},
 				{
-					"name": "[2.6] Get \"card_1\" fails",
+					"name": "[2.6] Get \"card_1\" empty",
 					"event": [
 						{
 							"listen": "test",
@@ -1415,6 +1415,397 @@
 							],
 							"path": [
 								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.7] Create 100 cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// NOTE: This test will only work in a collection runner, as it uses postman.setNextRequest",
+									"let counter = parseInt(pm.environment.get(\"counter2\"))",
+									"",
+									"if(counter < 100){",
+									"    counter++;",
+									"    pm.environment.set(\"counter\", counter);",
+									"    postman.setNextRequest(\"[2.9] Create 100 cards\")",
+									"}",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains \\\"Card was created successfully\\\"\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Card was created successfully\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"type": "text",
+								"value": "{{admin-token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"card_{{counter}}\",\n    \"difficulty\": \"easy\",\n    \"content\": \"card #{{counter}}\",\n    \"ispublic\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards",
+							"host": [
+								"{{url}}cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.8] Get all cards has 101 elements",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"response contains 2 items\", function () {",
+									"    pm.expect(data.totalItems).to.eql(100);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards",
+							"host": [
+								"{{url}}cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.5] Delete all cards",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"message is correct\", function () {",
+									"    pm.expect(data.message).to.eql(\"All cards deleted successfully\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards",
+							"host": [
+								"{{url}}cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.8] Get all cards is empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"response contains 0 items\", function () {",
+									"    pm.expect(data.totalItems).to.eql(0);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards",
+							"host": [
+								"{{url}}cards"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[1.12] register non-admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains \\\"User registered successfully\\\"\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"User registered successfully\")",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"non-admin\",\n    \"email\": \"non-admin@evanpernu.com\",\n    \"password\": \"a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}auth/register",
+							"host": [
+								"{{url}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[1.15] login as non-admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response has a JSON body\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response has an accessToken property\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.accessToken).to.be.a('string');",
+									"});",
+									"",
+									"var data = pm.response.json();",
+									"pm.environment.set(\"admin-token\", data.accessToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"non-admin\",\n    \"password\": \"a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.5] Delete all cards fails",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"message is correct\", function () {",
+									"    pm.expect(data.message).to.eql(\"Card \" + pm.environment.get(\"id\") + \" was deleted successfully\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards",
+							"host": [
+								"{{url}}cards"
 							]
 						}
 					},
