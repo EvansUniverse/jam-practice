@@ -75,6 +75,6 @@ exports.update = (req, res) => {
       });
   }
 
-  res.send({ message: "User updated successfully." });
+  res.send({ message: "User updated successfully" });
 
 };

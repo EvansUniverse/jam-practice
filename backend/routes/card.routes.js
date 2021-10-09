@@ -30,10 +30,7 @@ module.exports = app => {
   // Update one or more of a card's attributes
   router.put(
     '/:id/update', 
-    [
-      authJwt.verifyToken,
-      authJwt.isUser
-    ], 
+    [authJwt.verifyToken, authJwt.isUser], 
     controller.cardsUpdate
   );
 
@@ -44,12 +41,17 @@ module.exports = app => {
     controller.cardsDelete
   );
 
+  // Delete all cards
+  router.delete(
+    '', 
+    [authJwt.verifyToken, authJwt.isAdmin], 
+    controller.cardsDeleteAll
+  );
+
    // Create a new card
    router.post(
     '',
-    [
-      authJwt.verifyToken, authJwt.isUser
-    ],
+    [authJwt.verifyToken, authJwt.isUser],
     controller.create
   );
 

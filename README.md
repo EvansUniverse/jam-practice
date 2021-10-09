@@ -1,7 +1,7 @@
 # Jam-Practice
 Web app with flash cards designed especially for musicians.
 
-Tech specs:
+### Tech specs
 * A React frontend, a Node/express backend, and a mySQL database- all dockerized
 * Auth: login, registration, roles, and authenticated requests to the backend
 * A "my account" page to view and modify the current user
@@ -103,7 +103,7 @@ The database is a stock mySQL container. You're an adult and you know how to Goo
 ## Defaults
 New users created through `/api/auth/signup` are given the role of user.
 
-An admin user is created at startup, whose credentials (by default `admin:admin`) can be altered in `backend/config/auth.config.js`.
+An admin user is created at startup, whose credentials (by default `admin:admin`) can and should be altered in `backend/config/auth.config.js`.
 
 # Misc
 ## Known bugs
@@ -112,6 +112,8 @@ An admin user is created at startup, whose credentials (by default `admin:admin`
 * On a fresh machine, user needs to run `npm i --save @fortawesome/free-solid-svg-icons` or the frontend doesn't compile
 
 ## TODO
+* delete all cards requires admin
+* Fix postman tests
 * How should API behave if nothing is sent on a GET to an empty endpoint? It currently returns a 200, maybe should return a 404 or something?
 * Change the user delete endpoint to use HTTP DELETE instead of POST
 * Buy the domain jam-practice.com

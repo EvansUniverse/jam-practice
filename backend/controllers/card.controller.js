@@ -48,7 +48,7 @@ function getPagingData(data, page, size){
   return { totalItems, items, totalPages, currentPage };
 };
 
-// Get the card with the specified id.
+// Get the card with the specified id
 exports.cardsFindOne = (req, res) => {
   const id = req.params.id;
   Card.findOne({
@@ -62,7 +62,7 @@ exports.cardsFindOne = (req, res) => {
     });
 };
 
-// Update the card with the specified id.
+// Update the card with the specified id
 exports.cardsUpdate = (req, res) => {
   const id = req.params.id;
   if(req.body.title){
@@ -104,7 +104,7 @@ exports.cardsUpdate = (req, res) => {
   res.send({ message: "Card updated successfully." });
 };
 
-// Delete the card with the specified id.
+// Delete the card with the specified id
 exports.cardsDelete = (req, res) => {
   const id = req.params.id;
 
@@ -114,7 +114,7 @@ exports.cardsDelete = (req, res) => {
     .then(num => {
       if (num >= 1) {
         res.send({
-          message: `Card ${id} was deleted successfully.`
+          message: `Card ${id} deleted successfully`
         });
       } else {
         res.send({
@@ -125,6 +125,27 @@ exports.cardsDelete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: `Failed to delete card ${id}.`
+      });
+    });
+};
+
+// Delete all cards
+exports.cardsDeleteAll = (req, res) => {
+  const id = req.params.id;
+
+  Card.destroy({
+    where: {}
+  })
+    .then(num => {
+      if (num >= 1) {
+        res.send({
+          message: `All cards deleted successfully`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: `Failed to delete all cards`
       });
     });
 };
@@ -140,7 +161,7 @@ exports.create = (req, res) => {
   })
     .then(card => {
       res.send({ 
-        message: "Card was created successfully!", 
+        message: "Card created successfully", 
         id: card.id 
       });
     })

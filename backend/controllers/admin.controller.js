@@ -89,7 +89,7 @@ exports.usersUpdate = (req, res) => {
       });
   }
 
-  res.send({ message: "User updated successfully." });
+  res.send({ message: "User updated successfully" });
 };
 
 // Delete the user with the specified id.
@@ -112,7 +112,7 @@ exports.usersDelete = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: `Failed to delete User ${id}.`
+        message: `Failed to delete User ${id}`
       });
     });
 };

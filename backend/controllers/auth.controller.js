@@ -13,7 +13,7 @@ exports.register = (req, res) => {
     password: bcrypt.hashSync(req.body.password, 8)
   })
     .then(user => {
-      res.send({ message: "User was registered successfully!" });
+      res.send({ message: "User registered successfully" });
     })
     .catch(err => {
       res.status(500).send({ message: err.message || "Unknown error"});
@@ -28,7 +28,7 @@ exports.login = (req, res) => {
   })
     .then(user => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(404).send({ message: "User Not found" });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -39,7 +39,7 @@ exports.login = (req, res) => {
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
-          message: "Invalid Password!"
+          message: "Invalid password"
         });
       }
 
