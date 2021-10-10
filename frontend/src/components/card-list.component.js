@@ -139,7 +139,7 @@ export default class CardList extends Component {
                   onChange={this.onChangeSearchCriteria}
                 />
                 <div className="input-group-append">
-                  <button
+                  <button 
                     className="btn btn-outline-secondary"
                     type="button"
                     onClick={this.retrieveCards}
@@ -151,9 +151,7 @@ export default class CardList extends Component {
             </div>
             <div className="col-md-6">
               <h4>Cards List</h4>
-
-
-
+              <Link to="/cards/create" className="btn btn-primary">Create New Card</Link>
               <div className="mt-3">
                 {"Items per Page: "}
                 <select onChange={this.handlePageSizeChange} value={pageSize}>

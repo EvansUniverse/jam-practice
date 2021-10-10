@@ -19,6 +19,11 @@ function getCard(id) {
     .catch(err => { return handleApiError(err); });
 }
 
+function createCard(data) {
+  return http.post(`/cards`, data, { headers: getHeaders() })
+    .catch(err => { return handleApiError(err); });
+}
+
 function updateCard(id, data) {
   return http.put(`/cards/${id}`, data, { headers: getHeaders() })
     .catch(err => { return handleApiError(err); });
