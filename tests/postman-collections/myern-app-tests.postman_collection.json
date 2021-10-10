@@ -1130,6 +1130,135 @@
 									"    pm.expect(data.difficulty).to.eql(\"easy\");",
 									"});",
 									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards/{{id}}",
+							"host": [
+								"{{url}}cards"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.3] Update title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Response contains \\\"Card updated successfully\\\"\", function () {",
+									"    pm.expect(data.message).to.include(\"Card updated successfully\")",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"new_title\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards/{{id}}",
+							"host": [
+								"{{url}}cards"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.4] Verify title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"title is \\\"new_title\\\"\", function () {",
+									"    pm.expect(data.title).to.eql(\"new_title\")",
+									"});",
+									"",
 									""
 								],
 								"type": "text/javascript"
@@ -1179,7 +1308,7 @@
 					"response": []
 				},
 				{
-					"name": "[2.3] Update \"card_1\"",
+					"name": "[2.3] Update content",
 					"event": [
 						{
 							"listen": "test",
@@ -1190,6 +1319,136 @@
 									"pm.test(\"Response contains \\\"Card updated successfully\\\"\", function () {",
 									"    pm.expect(data.message).to.include(\"Card updated successfully\")",
 									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"new_content\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards/{{id}}",
+							"host": [
+								"{{url}}cards"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.4] Verify content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"content is \\\"new_content\\\"\", function () {",
+									"    pm.expect(data.content).to.eql(\"new_content\")",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards/{{id}}",
+							"host": [
+								"{{url}}cards"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.3] Update difficulty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Response contains \\\"Card updated successfully\\\"\", function () {",
+									"    pm.expect(data.message).to.include(\"Card updated successfully\")",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
 									""
 								],
 								"type": "text/javascript"
@@ -1224,20 +1483,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}cards/{{id}}/update",
+							"raw": "{{url}}cards/{{id}}",
 							"host": [
 								"{{url}}cards"
 							],
 							"path": [
-								"{{id}}",
-								"update"
+								"{{id}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "[2.4] Get \"card_1\" reflects changes",
+					"name": "[2.4] Verify difficulty",
 					"event": [
 						{
 							"listen": "test",
@@ -1302,7 +1560,133 @@
 					"response": []
 				},
 				{
-					"name": "[2.5] Delete \"card_1\"",
+					"name": "[2.3] Update ispublic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Response contains \\\"Card updated successfully\\\"\", function () {",
+									"    pm.expect(data.message).to.include(\"Card updated successfully\")",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ispublic\": \"false\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards/{{id}}",
+							"host": [
+								"{{url}}cards"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.4] Verify ispublic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"ispublic is false\", function () {",
+									"    pm.expect(data.ispublic).to.eql(false);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{admin-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0NTAyNzQ4LCJleHAiOjE2MTQ1Mzg5NDh9.v9H2zZcJVCpAALj4HDsEE-NeF-50KzAqQFN9Tw7OonI",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}cards/{{id}}",
+							"host": [
+								"{{url}}cards"
+							],
+							"path": [
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[2.5] Delete card",
 					"event": [
 						{
 							"listen": "test",
@@ -1360,7 +1744,7 @@
 					"response": []
 				},
 				{
-					"name": "[2.6] Get \"card_1\" empty",
+					"name": "[2.6] Verify delete",
 					"event": [
 						{
 							"listen": "test",
