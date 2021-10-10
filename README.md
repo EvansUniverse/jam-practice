@@ -96,8 +96,8 @@ The database is a stock mySQL container. You're an adult and you know how to Goo
 ## Role
 | Role | Inherited role(s) | Permissions | 
 | - | - | - |
-| Admin | User, Moderator | an access admin and development endpoints |
-| Moderator | User | |
+| Admin | User, Moderator | Access admin and development endpoints |
+| Moderator | User | Nothing special, yet |
 | User | | |
 
 ## Defaults
@@ -112,7 +112,7 @@ An admin user is created at startup, whose credentials (by default `admin:admin`
 * On a fresh machine, user needs to run `npm i --save @fortawesome/free-solid-svg-icons` or the frontend doesn't compile
 
 ## TODO
-* delete all cards requires admin
+* ispublic change from front end doesnt work
 * Fix postman tests
 * How should API behave if nothing is sent on a GET to an empty endpoint? It currently returns a 200, maybe should return a 404 or something?
 * Change the user delete endpoint to use HTTP DELETE instead of POST
